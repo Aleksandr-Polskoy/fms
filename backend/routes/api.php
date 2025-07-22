@@ -1,0 +1,22 @@
+use App\Http\Controllers\PreparationController;
+use App\Http\Controllers\CultureController;
+use App\Http\Controllers\VarietyController;
+use App\Http\Controllers\FieldController;
+use App\Http\Controllers\FieldPlanController;
+use App\Http\Controllers\FieldActionController;
+use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\NotificationRuleController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\DeepseekController;
+
+Route::apiResource('preparations', PreparationController::class);
+Route::apiResource('cultures', CultureController::class);
+Route::apiResource('varieties', VarietyController::class);
+Route::apiResource('fields', FieldController::class);
+Route::apiResource('field-plans', FieldPlanController::class);
+Route::apiResource('field-actions', FieldActionController::class)->only(['index', 'show', 'update']);
+Route::get('fields/{field}/weather-forecast', [WeatherController::class, 'forecast']);
+Route::apiResource('notification-rules', NotificationRuleController::class);
+Route::apiResource('notifications', NotificationController::class)->only(['index']);
+Route::post('fields/{field}/generate-notifications', [NotificationController::class, 'generate']);
+Route::post('fields/{field}/deepseek-recommend', [DeepseekController::class, 'recommend']); 
