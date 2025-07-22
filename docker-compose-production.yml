@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # MySQL база данных
   mysql:
-    image: ghcr.io/aleksandr-polskoy/fms/mysql:latest
+    image: mysql:8.0
     container_name: fms_mysql
     restart: unless-stopped
     environment:
@@ -13,6 +13,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-fms_password}
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
     ports:
       - "3306:3306"
     networks:
