@@ -1,4 +1,4 @@
-# Настройка системы с доменом fms.devdemo.ru через FastPanel
+# Настройка системы с доменом через FastPanel
 
 ## Этап 1: Подготовка файлов на сервере
 
@@ -62,7 +62,7 @@ services:
       APP_NAME: "FMS"
       APP_ENV: production
       APP_DEBUG: "false"
-      APP_URL: https://fms.devdemo.ru
+      APP_URL: https://ваш-домен.com
       DB_CONNECTION: mysql
       DB_HOST: mysql
       DB_PORT: 3306
@@ -103,7 +103,7 @@ services:
       - ./frontend:/app
       - frontend_dist:/app/dist
     environment:
-      - API_URL=https://fms.devdemo.ru/api
+      - API_URL=https://ваш-домен.com/api
     command: sh -c "npm install && npm run build"
     networks:
       - fms_network
@@ -171,27 +171,27 @@ server {
 ### 3.1 Вход в FastPanel
 1. Откройте `http://ваш_сервер_ip:8888`
 2. Войдите в панель управления
-3. Найдите сайт `fms.devdemo.ru`
+3. Найдите ваш сайт
 
 ### 3.2 Настройка домена
 1. В FastPanel перейдите в раздел "Сайты"
-2. Найдите `fms.devdemo.ru`
+2. Найдите ваш домен
 3. Нажмите "Настройки" или "Редактировать"
 
 ### 3.3 Настройка DNS
 Убедитесь, что DNS записи настроены:
-- A запись: `fms.devdemo.ru` → IP вашего сервера
-- CNAME запись: `www.fms.devdemo.ru` → `fms.devdemo.ru`
+- A запись: `ваш-домен.com` → IP вашего сервера
+- CNAME запись: `www.ваш-домен.com` → `ваш-домен.com`
 
 ## Этап 4: Настройка Nginx в FastPanel
 
 ### 4.1 Создание конфигурации
-В FastPanel для сайта `fms.devdemo.ru` создайте следующую конфигурацию:
+В FastPanel для вашего сайта создайте следующую конфигурацию:
 
 ```nginx
 server {
     listen 80;
-    server_name fms.devdemo.ru;
+    server_name ваш-домен.com;
     root /opt/fms/frontend/dist;
     index index.html;
 
@@ -303,7 +303,7 @@ ls -la /opt/fms/frontend/dist/
 ### 6.1 Через FastPanel
 1. Войдите в FastPanel
 2. Перейдите в "SSL сертификаты"
-3. Выберите сайт `fms.devdemo.ru`
+3. Выберите ваш сайт
 4. Установите Let's Encrypt сертификат
 5. Включите автоматическое обновление
 
@@ -313,13 +313,13 @@ ls -la /opt/fms/frontend/dist/
 ```nginx
 server {
     listen 80;
-    server_name fms.devdemo.ru;
+    server_name ваш-домен.com;
     return 301 https://$server_name$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name fms.devdemo.ru;
+    server_name ваш-домен.com;
     root /opt/fms/frontend/dist;
     index index.html;
 
@@ -356,11 +356,11 @@ server {
 
 ### 7.1 Проверка API
 ```bash
-curl https://fms.devdemo.ru/api/cultures
+curl https://ваш-домен.com/api/cultures
 ```
 
 ### 7.2 Проверка Frontend
-Откройте в браузере: `https://fms.devdemo.ru`
+Откройте в браузере: `https://ваш-домен.com`
 
 ### 7.3 Проверка логов
 ```bash
@@ -429,5 +429,5 @@ docker-compose -f docker-compose-domain.yml logs mysql
 ## Готово!
 
 После выполнения всех этапов ваша система будет доступна по адресу:
-- **Frontend**: https://fms.devdemo.ru
-- **Backend API**: https://fms.devdemo.ru/api 
+- **Frontend**: https://ваш-домен.com
+- **Backend API**: https://ваш-домен.com/api 
