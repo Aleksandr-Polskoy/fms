@@ -49,9 +49,6 @@ DB_USER=${DB_USER:-fms_user}
 read -s -p "Пароль для базы данных: " DB_PASSWORD
 echo
 
-read -s -p "Пароль root для базы данных: " DB_ROOT_PASSWORD
-echo
-
 # API ключи
 read -p "API ключ OpenWeatherMap (опционально): " OPENWEATHER_API_KEY
 read -p "API ключ Deepseek (опционально): " DEEPSEEK_API_KEY
@@ -112,7 +109,6 @@ sed -i "s|DEEPSEEK_API_KEY=.*|DEEPSEEK_API_KEY=$DEEPSEEK_API_KEY|g" .env
 sed -i "s|MYSQL_DATABASE=.*|MYSQL_DATABASE=$DB_NAME|g" docker-compose-domain.yml
 sed -i "s|MYSQL_USER=.*|MYSQL_USER=$DB_USER|g" docker-compose-domain.yml
 sed -i "s|MYSQL_PASSWORD=.*|MYSQL_PASSWORD=$DB_PASSWORD|g" docker-compose-domain.yml
-sed -i "s|MYSQL_ROOT_PASSWORD=.*|MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD|g" docker-compose-domain.yml
 
 # Этап 5: Запуск приложения
 log_info "Запуск приложения..."
@@ -162,7 +158,6 @@ echo "База данных:"
 echo "📊 База: $DB_NAME"
 echo "👤 Пользователь: $DB_USER"
 echo "🔑 Пароль: $DB_PASSWORD"
-echo "🔑 Root пароль: $DB_ROOT_PASSWORD"
 echo
 echo "Следующие шаги:"
 echo "1. Настройте nginx конфигурацию в FastPanel"
