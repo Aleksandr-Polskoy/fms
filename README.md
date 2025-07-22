@@ -33,6 +33,7 @@
 - **Docker** для контейнеризации
 - **Nginx** для веб-сервера
 - **FastPanel** для управления сервером
+- **GitHub Container Registry** для Docker образов
 
 ## 📦 Установка
 
@@ -52,9 +53,37 @@ chmod +x start.sh
 ./start.sh
 ```
 
+### Использование готовых Docker образов
+
+```bash
+# Создайте .env файл
+cp env.example .env
+
+# Запустите с production образами
+docker-compose -f docker-compose-production.yml up -d
+```
+
 ### Установка на сервер с FastPanel
 
 Следуйте инструкции в [FASTPANEL_DOMAIN_SETUP.md](FASTPANEL_DOMAIN_SETUP.md)
+
+## 🐳 Docker образы
+
+Система автоматически собирает Docker образы в GitHub Container Registry:
+
+### Доступные образы:
+- **Backend**: `ghcr.io/aleksandr-polskoy/fms/backend:latest`
+- **Frontend**: `ghcr.io/aleksandr-polskoy/fms/frontend:latest`
+- **MySQL**: `ghcr.io/aleksandr-polskoy/fms/mysql:latest`
+
+### Использование образов:
+```bash
+# Скачать образ
+docker pull ghcr.io/aleksandr-polskoy/fms/backend:latest
+
+# Запустить контейнер
+docker run -d ghcr.io/aleksandr-polskoy/fms/backend:latest
+```
 
 ## 🌐 Доступ к системе
 
@@ -101,8 +130,11 @@ fms/
 │   │   └── router/
 │   └── public/
 ├── nginx/                  # Nginx конфигурации
+├── mysql/                  # MySQL Dockerfile
+├── .github/workflows/      # GitHub Actions
 ├── docker-compose.yml      # Docker для IP
 ├── docker-compose-domain.yml # Docker для домена
+├── docker-compose-production.yml # Production образы
 ├── dump.sql               # Структура БД
 └── README.md              # Документация
 ```
