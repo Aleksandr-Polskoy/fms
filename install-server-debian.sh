@@ -80,7 +80,7 @@ apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 # Проверка установки
 docker --version
-docker-compose --version
+docker compose version
 
 # Добавление пользователя в группу docker
 usermod -aG docker $USER
@@ -112,8 +112,8 @@ sed -i "s|MYSQL_PASSWORD=.*|MYSQL_PASSWORD=$DB_PASSWORD|g" docker-compose-domain
 
 # Этап 5: Запуск приложения
 log_info "Запуск приложения..."
-docker-compose -f docker-compose-domain.yml down
-docker-compose -f docker-compose-domain.yml up -d --build
+docker compose -f docker-compose-domain.yml down
+docker compose -f docker-compose-domain.yml up -d --build
 
 # Ожидание запуска контейнеров
 log_info "Ожидание запуска контейнеров..."
@@ -128,7 +128,7 @@ docker exec fms_backend php artisan route:cache
 
 # Этап 7: Проверка установки
 log_info "Проверка установки..."
-docker-compose -f docker-compose-domain.yml ps
+docker compose -f docker-compose-domain.yml ps
 
 # Проверка API
 log_info "Проверка API..."
@@ -136,7 +136,7 @@ if curl -s "http://localhost:8000/api/cultures" > /dev/null; then
     log_info "✅ API работает корректно!"
 else
     log_warn "⚠️ API может быть недоступен. Проверьте логи:"
-    docker-compose -f docker-compose-domain.yml logs backend
+    docker compose -f docker-compose-domain.yml logs backend
 fi
 
 # Вывод информации
@@ -149,10 +149,10 @@ echo "🔧 Backend API: https://$DOMAIN/api"
 echo "🗄️ База данных: localhost:3306"
 echo
 echo "Управление:"
-echo "📊 Статус: docker-compose -f docker-compose-domain.yml ps"
-echo "📋 Логи: docker-compose -f docker-compose-domain.yml logs -f"
-echo "🛑 Остановка: docker-compose -f docker-compose-domain.yml down"
-echo "🔄 Перезапуск: docker-compose -f docker-compose-domain.yml restart"
+echo "📊 Статус: docker compose -f docker-compose-domain.yml ps"
+echo "📋 Логи: docker compose -f docker-compose-domain.yml logs -f"
+echo "🛑 Остановка: docker compose -f docker-compose-domain.yml down"
+echo "🔄 Перезапуск: docker compose -f docker-compose-domain.yml restart"
 echo
 echo "База данных:"
 echo "📊 База: $DB_NAME"
