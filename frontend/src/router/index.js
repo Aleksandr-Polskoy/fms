@@ -1,3 +1,4 @@
+import { createRouter, createWebHistory } from 'vue-router'
 import PreparationsView from '../views/PreparationsView.vue'
 import CulturesView from '../views/CulturesView.vue'
 import VarietiesView from '../views/VarietiesView.vue'
@@ -16,4 +17,11 @@ const routes = [
   { path: '/field-plan-apply', name: 'FieldPlanApply', component: FieldPlanApplyView },
   { path: '/field-work', name: 'FieldWork', component: FieldWorkView },
   { path: '/notification-rules', name: 'NotificationRules', component: NotificationRulesView },
-] 
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+export default router 

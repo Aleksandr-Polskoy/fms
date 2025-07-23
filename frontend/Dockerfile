@@ -1,4 +1,5 @@
-FROM node:18-alpine
+# Этап сборки
+FROM node:18-alpine AS build
 
 # Установка рабочей директории
 WORKDIR /app
@@ -15,11 +16,11 @@ COPY . .
 # Сборка проекта
 RUN npm run build
 
-# Установка nginx для раздачи статических файлов
+# Этап production
 FROM nginx:alpine
 
 # Копирование собранных файлов
-COPY --from=0 /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Копирование nginx конфигурации
 COPY nginx.conf /etc/nginx/conf.d/default.conf
