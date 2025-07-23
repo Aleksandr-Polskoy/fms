@@ -74,7 +74,7 @@ docker-compose -f docker-compose-production.yml up -d
 ### Доступные образы:
 - **Backend**: `ghcr.io/aleksandr-polskoy/fms/backend:latest`
 - **Frontend**: `ghcr.io/aleksandr-polskoy/fms/frontend:latest`
-- **MySQL**: `mysql:8.0` (стандартный образ)
+- **MySQL**: `ghcr.io/aleksandr-polskoy/fms/mysql:latest`
 
 ### Использование образов:
 ```bash
@@ -130,6 +130,7 @@ fms/
 │   │   └── router/
 │   └── public/
 ├── nginx/                  # Nginx конфигурации
+├── mysql/                  # MySQL Dockerfile
 ├── .github/workflows/      # GitHub Actions
 ├── docker-compose.yml      # Docker для IP
 ├── docker-compose-domain.yml # Docker для домена

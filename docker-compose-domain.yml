@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # MySQL база данных
   mysql:
@@ -7,6 +5,7 @@ services:
     container_name: fms_mysql
     restart: unless-stopped
     environment:
+      MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: fms_db
       MYSQL_USER: fms_user
       MYSQL_PASSWORD: fms_password
